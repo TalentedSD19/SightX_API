@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+python-multipart
+torch
+pillow
+opencv-python
+pandas
+requests
+ultralytics
+yolov5
+numpy
