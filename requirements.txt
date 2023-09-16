@@ -9,3 +9,4 @@ requests
 ultralytics
 yolov5
 numpy
+twilio
