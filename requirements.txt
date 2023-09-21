@@ -10,3 +10,4 @@ ultralytics
 yolov5
 numpy
 twilio
+requests
