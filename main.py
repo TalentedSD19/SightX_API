@@ -10,7 +10,7 @@ import base64
 from fastapi.middleware.cors import CORSMiddleware
 import keys
 from twilio.rest import Client
-
+import requests
 
 app = FastAPI()
 client = Client(keys.account_sid, keys.auth_token)
@@ -34,6 +34,11 @@ class Location(BaseModel):
     latitude: str
     longitude: str
     address: str
+
+
+class Coordinates(BaseModel):
+    latitude: str
+    longitude: str
 
 
 # Load YOLOv5 model
@@ -223,3 +228,19 @@ BlindSight AI''',
         from_=keys.twillio_number,
         to=keys.recepient_number
     )
+
+
+@app.post("/weather")
+def weather(coordinates: Coordinates):
+    url = f'http://api.openweathermap.org/data/2.5/weather?lat={coordinates.latitude}&lon={coordinates.longitude}&appid=dbb8a98372740af7be4ed458550fbb2a'
+
+    # Send the GET request
+    response = requests.get(url)
+    print('got it')
+    # Check if the request was successful (status code 200)
+    if response.status_code == 200:
+        # Parse the JSON response
+        data = response.json()
+        return data
+    else:
+        return 'Error fetching weather data'
